@@ -29,25 +29,26 @@ def ema(sd, ed, symbol, plot = False, window_size = 20):
     df_ema = df_ema.truncate(before=sd)
     df_price = df_price.truncate(before=sd)
 
+    # Normalization
+    normalized_df_price = df_price[symbol] / df_price[symbol][0]
+    normalized_df_ema = df_ema[symbol] / df_ema[symbol][0]
+
     if plot == True:
         plt.figure(figsize=(14,8))
-	
-        df_price[symbol] = df_price[symbol] / df_price[symbol][0]
-        normalized_df_ema = df_ema[symbol] / df_ema[symbol][0]
 
         plt.title("{} days EMA".format(window_size))
         plt.xlabel("Date")
         plt.ylabel("Normalized Pirce")
         plt.xticks(rotation=30)
         plt.grid()
-        plt.plot(df_price, label="normalized price", color = "blue")
+        plt.plot(normalized_df_price, label="normalized price", color = "blue")
         plt.plot(normalized_df_ema, label="{} days EMA".format(window_size), color = "red")
         plt.legend()
         plt.savefig("report/part1_ema.png", bbox_inches='tight')
         # plt.show()
         plt.clf()
 
-    return df_ema
+    return normalized_df_ema
 
 
 # MACD: Moving Average Convergence Divergence

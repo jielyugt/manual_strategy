@@ -130,7 +130,7 @@ def plot_graphes(benchmark_portvals, theoretical_portvals):
 	plt.plot(benchmark_portvals, label="benchmark", color = "green")
 	plt.plot(theoretical_portvals, label="theoritical", color = "red")
 	plt.legend()
-	plt.savefig("report/part2.png", bbox_inches='tight')
+	plt.savefig("report/theoretical.png", bbox_inches='tight')
 	# plt.show()
 	plt.clf()
 
