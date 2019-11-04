@@ -76,8 +76,7 @@ def get_benchmark(sd, ed, sv):
 	# starting with $100,000 cash, investing in 1000 shares of JPM and holding that position
 
 	df_trades = get_data(['SPY'], pd.date_range(sd, ed))
-	df_trades = df_trades.rename(
-		columns={'SPY': 'JPM'}).astype({'JPM': 'int32'})
+	df_trades = df_trades.rename(columns={'SPY': 'JPM'}).astype({'JPM': 'int32'})
 	df_trades[:] = 0
 	df_trades.loc[df_trades.index[0]] = 1000
 	portvals = compute_portvals(df_trades, sv, commission=0.00, impact=0.00)
@@ -122,11 +121,12 @@ def plot_graphes(benchmark_portvals, theoretical_portvals):
 	benchmark_portvals['value'] = benchmark_portvals['value'] / benchmark_portvals['value'][0]
 	theoretical_portvals['value'] = theoretical_portvals['value'] / theoretical_portvals['value'][0]
 
+	plt.figure(figsize=(14,8))
 	plt.title("TheoreticallyOptimalStrategy")
 	plt.xlabel("Date")
 	plt.ylabel("Cumulative Return")
 	plt.xticks(rotation=30)
-
+	plt.grid()
 	plt.plot(benchmark_portvals, label="benchmark", color = "green")
 	plt.plot(theoretical_portvals, label="theoritical", color = "red")
 	plt.legend()
