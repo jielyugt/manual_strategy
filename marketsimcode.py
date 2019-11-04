@@ -1,6 +1,11 @@
 """
 An improved version of your marketsim code that accepts a "trades" data frame (instead of a file)
 """
+"""
+Student Name: Jie Lyu 		   	  			  	 		  		  		    	 		 		   		 		  
+GT User ID: jlyu31  		   	  			  	 		  		  		    	 		 		   		 		  
+GT ID: 903329676 
+"""
 
 import pandas as pd  		   	  			  	 		  		  		    	 		 		   		 		  
 import numpy as np  		   	  			  	 		  		  		    	 		 		   		 		  

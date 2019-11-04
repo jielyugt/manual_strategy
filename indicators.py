@@ -3,6 +3,13 @@ Your code that implements your indicators as functions that operate on dataframe
 The "main" code in indicators.py should generate the charts that illustrate your indicators in the report
 """
 
+"""
+Student Name: Jie Lyu 		   	  			  	 		  		  		    	 		 		   		 		  
+GT User ID: jlyu31  		   	  			  	 		  		  		    	 		 		   		 		  
+GT ID: 903329676 
+"""
+
+
 import pandas as pd  		   	  			  	 		  		  		    	 		 		   		 		  
 import matplotlib.pyplot as plt
 import datetime as dt
@@ -52,8 +59,8 @@ def ema(sd, ed, symbol, plot = False, window_size = 20):
 
 
 # MACD: Moving Average Convergence Divergence
-# macd_signal > macd_raw, BUY
-# macd_signal < macd_raw, SELL
+# macd_signal > macd_raw, SELL
+# macd_signal < macd_raw, BUY
 def macd(sd, ed, symbol, plot = False):
 
     # look up history to calculate the ema for the 28 days

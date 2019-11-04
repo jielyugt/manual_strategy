@@ -80,9 +80,9 @@ class ManualStrategy:
             macd_signal_today = macd_signal.loc[today].loc[symbol]
             # if macd_signal_today > macd_raw_today + 0.2:
             if macd_signal_today > macd_raw_today:
-                macd_vote = 1
+                macd_vote = 2
             # elif macd_signal_today < macd_raw_today - 0.2:
-            if macd_signal_today < macd_raw_today:
+            elif macd_signal_today < macd_raw_today:
                 macd_vote = -10
             else:
                 macd_vote = 1
@@ -93,13 +93,13 @@ class ManualStrategy:
             if tsi_today > 0.1:
                 tsi_vote = 1
             # elif tsi_today < -0.05:
-            elif tsi_today < -0.1:        
+            elif tsi_today < 0.1:        
                 tsi_vote = -1
             else:
                 tsi_vote = 0
 
             # pooling the votes
-            pool = ema_vote + macd_vote + tsi_vote
+            pool = macd_vote + tsi_vote + ema_vote
             if pool >= 3:
                 # long
                 action = 1000 - current_position
@@ -152,7 +152,7 @@ def print_stats(benchmark, theoretical):
     adr_the = dr_the.mean()
 
     print("")
-    print("[TheoreticallyOptimalStrategy]")
+    print("[ManualStrategy]")
     print("Cumulative return: " + str(cr_the))
     print("Stdev of daily returns: " + str(sddr_the))
     print("Mean of daily returns: " + str(adr_the))
@@ -180,11 +180,12 @@ def plot_graphes(benchmark_portvals, theoretical_portvals, short, long, label):
     plt.plot(benchmark_portvals, label="benchmark", color = "green")
     plt.plot(theoretical_portvals, label="manual", color = "red")
 
-    for date in short:
-        plt.axvline(date, color = "black")
-    
-    for date in long:
-        plt.axvline(date, color = "blue")
+    if label == 'in_sample':
+        for date in short:
+            plt.axvline(date, color = "black")
+        
+        for date in long:
+            plt.axvline(date, color = "blue")
 
     plt.legend()
     plt.savefig("report/manual_{}.png".format(label), bbox_inches='tight')
@@ -202,11 +203,11 @@ def report():
     ed = dt.datetime(2009,12,31)
     symbol = ['JPM']
 
-    # # OOS
-    # sv = 100000
-    # sd = dt.datetime(2010, 1, 1)
-    # ed = dt.datetime(2011,12,31)
-    # symbol = ['JPM']
+    # OOS
+    sv = 100000
+    sd = dt.datetime(2010, 1, 1)
+    ed = dt.datetime(2011,12,31)
+    symbol = ['JPM']
 
     # get theoretical performance
     ms = ManualStrategy()
@@ -238,7 +239,9 @@ def report():
         else:
             last_action = 'OUT'
 
-    plot_graphes(benchmark_portvals, manual_portvals, short, long, 'in_sample')
+    # plot_graphes(benchmark_portvals, manual_portvals, short, long, 'in_sample')
+    plot_graphes(benchmark_portvals, manual_portvals, short, long, 'out_sample')
+
 
 def author():
     return 'jlyu31'
